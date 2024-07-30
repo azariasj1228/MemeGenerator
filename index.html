@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meme Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5e1e1; /* Light pink background */
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #ff99cc; /* Pink heading color */
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      color: #ff99cc; /* Pink label color */
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #ff99cc; /* Pink button color */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff66b3; /* Lighter pink hover color */
+    }
+    .meme-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .meme {
+      position: relative;
+    }
+    .top-text, .bottom-text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-size: 20px;
+    }
+    .top-text {
+      top: 10px;
+    }
+    .bottom-text {
+      bottom: 10px;
+    }
+    .delete-icon {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      color: #ff6666; /* Red delete icon color */
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Meme Generator</h1>
+  <form id="memeForm">
+    <label for="topText">Top Text:</label><br>
+    <input type="text" id="topText" name="topText" required><br>
+    <label for="bottomText">Bottom Text:</label><br>
+    <input type="text" id="bottomText" name="bottomText" required><br>
+    <label for="imgUrl">Image URL:</label><br>
+    <input type="text" id="imgUrl" name="imgUrl" required><br>
+    <button type="submit">Generate Meme</button>
+  </form>
+
+  <div class="meme-container" id="memeContainer"></div>
+
+  <script>
+    const form = document.getElementById('memeForm');
+    const memeContainer = document.getElementById('memeContainer');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const topText = document.getElementById('topText').value;
+      const bottomText = document.getElementById('bottomText').value;
+      const imgUrl = document.getElementById('imgUrl').value;
+
+      const meme = document.createElement('div');
+      meme.classList.add('meme');
+
+      const img = document.createElement('img');
+      img.src = imgUrl;
+      img.alt = 'Meme Image';
+
+      const topTextDiv = document.createElement('div');
+      topTextDiv.classList.add('top-text');
+      topTextDiv.innerText = topText;
+
+      const bottomTextDiv = document.createElement('div');
+      bottomTextDiv.classList.add('bottom-text');
+      bottomTextDiv.innerText = bottomText;
+
+      const deleteIcon = document.createElement('span');
+      deleteIcon.classList.add('delete-icon');
+      deleteIcon.innerHTML = '&#10006;';
+      deleteIcon.addEventListener('click', function() {
+        meme.remove();
+      });
+
+      meme.appendChild(img);
+      meme.appendChild(topTextDiv);
+      meme.appendChild(bottomTextDiv);
+      meme.appendChild(deleteIcon);
+
+      memeContainer.appendChild(meme);
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
